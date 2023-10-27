@@ -1,6 +1,6 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
-import { Box, Text, Line, Button } from "uu5g05-elements";
+import { createVisualComponent, PropTypes, Utils } from "uu5g05";
+import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -9,49 +9,70 @@ const Tile = createVisualComponent({
   uu5Tag: Config.TAG + "Tile",
   //@@viewOff:statics
 
-  render() {
+  //@@viewOn:propTypes
+  propTypes: {
+    joke: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      text: PropTypes.string,
+      imageUrl: PropTypes.string,
+      averageRating: PropTypes.number.isRequired,
+      uuIdentityName: PropTypes.string.isRequired,
+      sys: PropTypes.shape({
+        cts: PropTypes.string,
+      }),
+    }).isRequired,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
+  },
+  //@@viewOff:propTypes
+
+  //@@viewOn:defaultProps
+  defaultProps: {
+    onUpdate: () => {},
+    onDelete: () => {},
+  },
+  //@@viewOff:defaultProps
+
+  render(props) {
     //@@viewOn:private
-    function handleDelete() {
-      alert("I can't delete joke. I'm dumb visual component.");
+    function handleDelete(event) {
+      props.onDelete(new Utils.Event(props.joke, event));
     }
 
-    function handleUpdate() {
-      alert("I can't update joke. I'm dumb visual component.");
+    function handleUpdate(event) {
+      props.onUpdate(new Utils.Event(props.joke, event));
     }
     //@@viewOff:private
 
     //@@viewOn:render
+    const { elementProps } = Utils.VisualComponent.splitProps(props);
+
     return (
-      <Box style={{ width: 640, margin: "24px auto" }}>
+      <Box {...elementProps}>
         <Text category="interface" segment="title" type="minor" colorScheme="building">
-          New Years' resolution
+          {props.joke.name}
         </Text>
         <div>
           <Text category="interface" segment="content" type="medium" colorScheme="building">
-            My New Years' resolution is 8K.
+            {props.joke.text}
           </Text>
         </div>
         <div>
-          <img src="https://placeimg.com/640/320/any" />
+          <img src={props.joke.imageUrl} />
         </div>
         <Line significance="subdued" />
         <div>
           <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
-            IT, sport, hardware
+            {props.joke.uuIdentityName}
           </Text>
         </div>
         <div>
           <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
-            Jan Novák
-          </Text>
-        </div>
-        <div>
-          <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
-            17.03.2022
+            <DateTime value={props.joke.sys.cts} />
           </Text>
         </div>
         <Box significance="distinct">
-          Average rating: 3 / 5
+          {`Average rating: ${props.joke.averageRating.toFixed(props.joke.averageRating % 1 ? 1 : 0)} / 5`}
           <Button icon="mdi-pencil" onClick={handleUpdate} significance="subdued" tooltip="Update" />
           <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
         </Box>
