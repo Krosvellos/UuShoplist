@@ -37,9 +37,7 @@ const ResolvedTile = createVisualComponent({
             {props.joke.name}
           </Text>
           <Box significance="distinct">
-           
-              <Icon icon="fa-check" style={{fontSize: 40}}/>
-      
+            <Icon icon="fa-check" style={{ fontSize: 40 }} />
           </Box>
         </div>
       </Box>

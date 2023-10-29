@@ -10,14 +10,11 @@ const UserTile = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {
-  },
+  propTypes: {},
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
-  defaultProps: {
-
-  },
+  defaultProps: {},
   //@@viewOff:defaultProps
 
   render(props) {

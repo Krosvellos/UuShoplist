@@ -90,7 +90,9 @@ let Jokes = createVisualComponent({
                 <div className={Css.ListButtons()}>
                   <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
                   <CreateView onCreate={create} style={{ maxWidth: 400, display: "block" }} />
-                  <Button onClick={() => setShowResolved(!showResolved)}>{showResolved ? "not resolved" : "resolved"}</Button>
+                  <Button onClick={() => setShowResolved(!showResolved)}>
+                    {showResolved ? "not resolved" : "resolved"}
+                  </Button>
                 </div>
                 <ListView
                   jokeList={jokeList}
