@@ -1,34 +1,37 @@
 //@@viewOn:imports
+import { useEffect } from "uu5g05";
 import { createComponent, Utils, useState } from "uu5g05";
 import Config from "./config/config";
 //@@viewOff:imports
 
-const initialJokeList = [
-  {
-    id: Utils.String.generateId(),
-    name: "Bunny ate the wedding ring!",
-    text: "Why did the bunny eat the wedding ring? Because he heard it was 18 carrots!",
-    averageRating: 4,
-    uuIdentityName: "John Smith",
-    sys: { cts: "2022-03-17T09:48:38.990Z" },
-  },
-  {
-    id: Utils.String.generateId(),
-    name: "F5",
-    text: "I love the F5 key. It´s just so refreshing.",
-    averageRating: 3,
-    uuIdentityName: "Harry Potter",
-    sys: { cts: "2022-02-14T10:48:38.990Z" },
-  },
-  {
-    id: Utils.String.generateId(),
-    name: "Joke with image",
-    imageUrl: "https://picsum.photos/id/164/640/320",
-    averageRating: 1,
-    uuIdentityName: "Bart Simpson",
-    sys: { cts: "2021-02-14T10:48:38.990Z" },
-  },
-];
+const initialJokeList = {
+  id: "xdd",
+  listName: "Honzův list",
+  userList: [
+    { id: Utils.String.generateId(), name: "Honza" },
+    { id: Utils.String.generateId(), name: "Jakub" },
+    { id: Utils.String.generateId(), name: "Daniel" },
+  ],
+  singleShoppingList: [
+    {
+      id: Utils.String.generateId(),
+      name: "Bunny ate the wedding ring!",
+      resolved: false,
+    },
+    {
+      id: Utils.String.generateId(),
+      name: "F5",
+      resolved: false,
+    },
+    {
+      id: Utils.String.generateId(),
+      name: "Joke with image",
+      resolved: false,
+    },
+  ],
+
+  resolvedShoppingLists: [],
+};
 
 const ListProvider = createComponent({
   //@@viewOn:statics
@@ -45,34 +48,86 @@ const ListProvider = createComponent({
 
   render(props) {
     //@@viewOn:private
+    const [showResolved, setShowResolved] = useState(false);
     const [jokeList, setJokeList] = useState(initialJokeList);
+    const [resolvedJokes, setResolvedJokes] = useState(initialJokeList.resolvedShoppingLists);
+
+    useEffect(() => {
+      console.log(resolvedJokes);
+      console.log(jokeList.singleShoppingList);
+    }, [resolvedJokes]);
 
     function remove(joke) {
-      setJokeList((prevJokeList) => prevJokeList.filter((item) => item.id !== joke.id));
+      setJokeList((prevJokeList) => ({
+        ...prevJokeList,
+        singleShoppingList: prevJokeList.singleShoppingList.filter((item) => item.id !== joke.id),
+      }));
+    }
+
+    function removeUser(joke) {
+      setJokeList((prevJokeList) => ({
+        ...prevJokeList,
+        userList: prevJokeList.userList.filter((item) => item.id !== joke.id),
+      }));
     }
 
     function create(values) {
       const joke = {
         ...values,
         id: Utils.String.generateId(),
-        averageRating: Math.round(Math.random() * 5), // <0, 5>
-        uuIdentityName: "Gerald of Rivia",
         sys: {
           cts: new Date().toISOString(),
         },
       };
 
-      setJokeList((prevJokeList) => [...prevJokeList, joke]);
+      setJokeList((prevJokeList) => ({
+        ...prevJokeList,
+        singleShoppingList: [...prevJokeList.singleShoppingList, joke],
+      }));
+
       return joke;
     }
 
-    function update() {
-      throw new Error("Joke update is not implemented yet.");
+    function createUser(values) {
+      const user = {
+        ...values,
+        id: Utils.String.generateId(),
+      };
+
+      setJokeList((prevUserList) => ({
+        ...prevUserList,
+        userList: [...prevUserList.userList, user],
+      }));
+
+      return user;
     }
+
+    function update(id) {
+      console.log("Updating joke with id:", id);
+      setJokeList((prevJokeList) => {
+        const updatedJoke = prevJokeList.singleShoppingList.find((item) => item.id === id);
+        setResolvedJokes((prevResolved) => [...prevResolved, updatedJoke]);
+        console.log("Joke updated. Moving to resolvedShoppingLists:", updatedJoke);
+
+        return {
+          ...prevJokeList,
+          singleShoppingList: prevJokeList.singleShoppingList.filter((item) => item.id !== id),
+          resolvedShoppingLists: [...prevJokeList.resolvedShoppingLists, updatedJoke],
+        };
+      });
+    }
+
+    function renameList(value) {
+      setJokeList((prevList) => ({
+        ...prevList,
+        listName: value,
+      }));
+    }
+
     //@@viewOff:private
 
     //@@viewOn:render
-    const value = { jokeList, remove, update, create };
+    const value = { jokeList, remove, update, create, removeUser, createUser, renameList, showResolved, setShowResolved };
     return typeof props.children === "function" ? props.children(value) : props.children;
     //@@viewOff:render
   },

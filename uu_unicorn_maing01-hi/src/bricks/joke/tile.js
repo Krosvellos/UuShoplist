@@ -42,6 +42,7 @@ const Tile = createVisualComponent({
     function handleUpdate(event) {
       props.onUpdate(new Utils.Event(props.joke, event));
     }
+
     //@@viewOff:private
 
     //@@viewOn:render
@@ -49,33 +50,20 @@ const Tile = createVisualComponent({
 
     return (
       <Box {...elementProps}>
-        <Text category="interface" segment="title" type="minor" colorScheme="building">
-          {props.joke.name}
-        </Text>
-        <div>
-          <Text category="interface" segment="content" type="medium" colorScheme="building">
-            {props.joke.text}
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+          <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
+            {props.joke.name}
           </Text>
+          <Box significance="distinct">
+            <Button
+              icon="mdi-update"
+              onClick={handleUpdate}
+              significance="subdued"
+              tooltip="Update"
+            />
+            <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+          </Box>
         </div>
-        <div>
-          <img src={props.joke.imageUrl} />
-        </div>
-        <Line significance="subdued" />
-        <div>
-          <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
-            {props.joke.uuIdentityName}
-          </Text>
-        </div>
-        <div>
-          <Text category="interface" segment="content" type="medium" significance="subdued" colorScheme="building">
-            <DateTime value={props.joke.sys.cts} />
-          </Text>
-        </div>
-        <Box significance="distinct">
-          {`Average rating: ${props.joke.averageRating.toFixed(props.joke.averageRating % 1 ? 1 : 0)} / 5`}
-          <Button icon="mdi-pencil" onClick={handleUpdate} significance="subdued" tooltip="Update" />
-          <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
-        </Box>
       </Box>
     );
     //@@viewOff:render

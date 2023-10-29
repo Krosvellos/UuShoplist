@@ -11,11 +11,7 @@ const ListView = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {
-    jokeList: PropTypes.array.isRequired,
-    onUpdate: PropTypes.func,
-    onDelete: PropTypes.func,
-  },
+  propTypes: {},
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -55,10 +51,17 @@ const ListView = createVisualComponent({
     }
 
     function handleUpdate(event) {
+      const id = event.data;
+     
       try {
-        props.onUpdate(event.data);
+        props.onUpdate(id.id);
+        addAlert({
+          message: `The joke ${joke.name} has been updated.`,
+          priority: "success",
+          durationMs: 2000,
+        });
       } catch (error) {
-        ListView.logger.error("Error updating joke", error);
+        ListView.logger.error("Error updating joke", error + "ID OF ERROR " +id.id);
         showError(error, "Joke update failed!");
       }
     }
@@ -69,15 +72,25 @@ const ListView = createVisualComponent({
 
     return (
       <div {...attrs}>
-        {props.jokeList.map((joke) => (
-          <Tile
-            key={joke.id}
-            joke={joke}
-            onDelete={handleDelete}
-            onUpdate={handleUpdate}
-            style={{ width: 640, margin: "24px auto" }}
-          />
-        ))}
+        {props.showResolved
+          ? props.jokeList.resolvedShoppingLists.map((joke) => (
+              <Tile
+                key={joke.id}
+                joke={joke}
+                onDelete={handleDelete}
+                onUpdate={handleUpdate}
+                style={{ width: 1000, margin: "24px auto" }}
+              />
+            ))
+          : props.jokeList.singleShoppingList.map((joke) => (
+              <Tile
+                key={joke.id}
+                joke={joke}
+                onDelete={handleDelete}
+                onUpdate={handleUpdate}
+                style={{ width: 1000, margin: "24px auto" }}
+              />
+            ))}
       </div>
     );
     //@@viewOff:render
