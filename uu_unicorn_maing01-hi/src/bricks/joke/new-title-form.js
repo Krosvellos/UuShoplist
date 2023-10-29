@@ -29,10 +29,10 @@ const NewTitleForm = createVisualComponent({
 
     return (
       <Form {...elementProps} onSubmit={props.onSubmit}>
-        <FormText name="name" label="New list title" required />
+        <FormText name="name" label="Edit list title" required />
         <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", paddingTop: 8 }}>
           <CancelButton onClick={props.onCancel}>Cancel</CancelButton>
-          <SubmitButton>Change title</SubmitButton>
+          <SubmitButton>Edit Title</SubmitButton>
         </div>
       </Form>
     );

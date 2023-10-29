@@ -10,7 +10,9 @@ const UserTile = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {},
+  propTypes: {
+    onDelete: PropTypes.func,
+  },
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
@@ -32,12 +34,19 @@ const UserTile = createVisualComponent({
     const { elementProps } = Utils.VisualComponent.splitProps(props);
 
     return (
-      <Box {...elementProps}>
-        <Text category="interface" segment="title" type="minor" colorScheme="building">
+      
+
+<Box {...elementProps}>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+        <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 10 }}>
           {props.joke.name}
         </Text>
-        <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+          <Box significance="distinct">
+          <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
       </Box>
+        </div>
+      </Box>
+
     );
     //@@viewOff:render
   },

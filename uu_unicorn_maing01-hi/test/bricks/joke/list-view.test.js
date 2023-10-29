@@ -1,4 +1,4 @@
-import UuUnicorn from "uu_unicorn_maing01-hi";
+import UuShoplist from "uu_unicorn_maing01-hi";
 import { testProperties } from "uu5g05-test";
 
 const CONFIG = {

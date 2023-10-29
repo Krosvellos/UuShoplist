@@ -16,7 +16,7 @@ const Mode = {
 function CreateUserButton(props) {
   return (
     <Button {...props} colorScheme="primary" significance="highlighted">
-      Add user
+      Add Member
     </Button>
   );
 }

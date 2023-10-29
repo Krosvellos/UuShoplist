@@ -52,8 +52,8 @@ const UserListView = createVisualComponent({
           durationMs: 2000,
         });
       } catch (error) {
-        ListView.logger.error("Error deleting joke", error);
-        showError(error, "Joke delete failed!");
+        ListView.logger.error("Error deleting user", error);
+        showError(error, "User delete failed!");
       }
     }
     //@@viewOff:private
@@ -72,7 +72,7 @@ const UserListView = createVisualComponent({
               name={joke.name}
               joke={joke}
               onDelete={handleDelete}
-              style={{ width: 200, display: "flex", justifyContent: "space-around", alignItems: "center" }}
+              style={{ width: 180, display: "row", justifyContent: "space-between", alignItems: "center" }}
             />
           </div>
         ))}

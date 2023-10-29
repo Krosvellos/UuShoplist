@@ -5,28 +5,36 @@ import Config from "./config/config";
 //@@viewOff:imports
 
 const initialJokeList = {
-  id: "123456",
-  listName: "John list",
+  id: "721839",
+  listName: "Westfall Stew - Nákupní seznam",
   userList: [
-    { id: Utils.String.generateId(), name: "John" },
-    { id: Utils.String.generateId(), name: "Jacob" },
-    { id: Utils.String.generateId(), name: "Daniel" },
+    { id: Utils.String.generateId(), name: "Leeroy" },
+    { id: Utils.String.generateId(), name: "Mograine" },
+    { id: Utils.String.generateId(), name: "Thrall" },
   ],
   singleShoppingList: [
     {
       id: Utils.String.generateId(),
-      name: "Banana",
+      name: "2x Dráp kondora",
     },
     {
       id: Utils.String.generateId(),
-      name: "Egg",
+      name: "6x Murločí vejce",
+    },
+    {
+      id: Utils.String.generateId(),
+      name: "2x Gnollí tlapa",
     },
   ],
 
   resolvedShoppingLists: [
     {
       id: Utils.String.generateId(),
-      name: "Bread",
+      name: "2x Kančí rypák",
+    },
+    {
+      id: Utils.String.generateId(),
+      name: "5x Okra",
     },
   ],
 };
@@ -101,11 +109,11 @@ const ListProvider = createComponent({
     }
 
     function update(id) {
-      console.log("Updating joke with id:", id);
+      console.log("Updating item with id:", id);
       setShoppingList((prevShoppingList) => {
         const updatedList = prevShoppingList.singleShoppingList.find((item) => item.id === id);
         setResolvedShoppingList((prevResolved) => [...prevResolved, updatedList]);
-        console.log("Joke updated. Moving to resolvedShoppingLists:", updatedList);
+        console.log("Item updated. Moving to resolvedShoppingLists:", updatedList);
 
         return {
           ...prevShoppingList,

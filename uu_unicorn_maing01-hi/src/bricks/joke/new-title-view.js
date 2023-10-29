@@ -16,7 +16,7 @@ const Mode = {
 function NewTitleButton(props) {
   return (
     <Button {...props} colorScheme="primary" significance="highlighted">
-      change title
+      Edit Name
     </Button>
   );
 }
@@ -51,7 +51,7 @@ const NewTitleView = createVisualComponent({
         const newName = event.data.value.name;
         props.changeListName(newName);
         addAlert({
-          message: `List title has been updated to ${newName}.`,
+          message: `Title has been updated to ${newName}.`,
           priority: "success",
           durationMs: 2000,
         });

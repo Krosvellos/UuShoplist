@@ -45,7 +45,7 @@ const Tile = createVisualComponent({
             {props.joke.name}
           </Text>
           <Box significance="distinct">
-            <Button icon="mdi-update" onClick={handleUpdate} significance="subdued" tooltip="Resolve" />
+            <Button icon="fa-check" onClick={handleUpdate} significance="subdued" tooltip="Resolve" />
             <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
           </Box>
         </div>

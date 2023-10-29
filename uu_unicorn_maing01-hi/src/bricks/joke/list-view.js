@@ -15,17 +15,18 @@ const Css = {
       display: "flex",
       flexWrap: "wrap",
       justifyContent: "center",
+      
     }),
 
   listViewTile: () =>
     Config.Css.css({
-      width: 800,
-      margin: "24px",
+      width: 500,
+      margin: "12px",
       "@media (max-width: 1000px)": {
-        width: 550, // Adjust as needed for smaller screens
+        width: 400, // Adjust as needed for smaller screens
       },
       "@media (max-width: 768px)": {
-        width: 400, // Adjust as needed for smaller screens
+        width: 350, // Adjust as needed for smaller screens
       },
       // Add more media queries for different screen sizes if necessary
     }),
@@ -68,13 +69,13 @@ const ListView = createVisualComponent({
       try {
         props.onDelete(list);
         addAlert({
-          message: `The joke ${list.name} has been deleted.`,
+          message: `The item ${list.name} has been deleted.`,
           priority: "success",
           durationMs: 2000,
         });
       } catch (error) {
         ListView.logger.error("Error deleting list", error);
-        showError(error, "List delete failed!");
+        showError(error, "Deleting item failed!");
       }
     }
 
@@ -90,7 +91,7 @@ const ListView = createVisualComponent({
         });
       } catch (error) {
         ListView.logger.error("Error resolving item", error);
-        showError(error, "Item resolve failed!");
+        showError(error, "Resolving item failed!");
       }
     }
     //@@viewOff:private

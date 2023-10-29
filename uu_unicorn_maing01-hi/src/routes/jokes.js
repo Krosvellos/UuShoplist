@@ -29,10 +29,15 @@ const Css = {
   screen: () =>
     Config.Css.css({
       display: "flex",
-      flexDirection: "column", // Change to column for smaller screens
-      justifyContent: "space-around",
+      flexDirection: "column",
+      alignItems: "center", // Change to column for smaller screens
+      justifyContent: "center",
+      
       "@media (min-width: 768px)": {
         flexDirection: "row", // Change back to row for larger screens
+        marginRight: "20",
+        marginTop: 20,
+        marginLeft: "20"
       },
     }),
   userListContainer: () =>
@@ -41,24 +46,31 @@ const Css = {
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      marginRight: 0, // Remove right margin for smaller screens
+      marginRight: 60, // Remove right margin for smaller screens
+      marginLeft: 60,
+      marginTop: 0,
       gap: 10,
     }),
   ListButtons: () =>
     Config.Css.css({
       display: "flex",
       flexDirection: "column", // Change to column for smaller screens
-      gap: 10,
+      gap: 5,
       "@media (min-width: 768px)": {
         flexDirection: "row", // Change back to row for larger screens
+        gap: 50,
+      },
+      "@media (min-width: 1000px)": {
+        flexDirection: "row", // Change back to row for larger screens
+        gap: 100,
       },
     }),
 };
 
 //@@viewOff:cs
-let Jokes = createVisualComponent({
+let listItems = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Jokes",
+  uu5Tag: Config.TAG + "listItems",
   //@@viewOff:statics
 
   render() {
@@ -81,18 +93,20 @@ let Jokes = createVisualComponent({
           }) => (
             <div className={Css.screen()}>
               <div className={Css.userListContainer()}>
-                <h1>USER LIST</h1>
+                <h1 style={{fontSize: 22}}>Members:</h1>
                 <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />
                 <UserListView shoppingList={shoppingList} onDelete={removeUser} />
               </div>
               <div className={Css.icon()}>
                 <h1> {shoppingList.listName}</h1>
                 <div className={Css.ListButtons()}>
-                  <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
-                  <CreateView onCreate={create} style={{ maxWidth: 400, display: "block" }} />
-                  <Button onClick={() => setShowResolved(!showResolved)}>
-                    {showResolved ? "not resolved" : "resolved"}
+                <CreateView onCreate={create} style={{ maxWidth: 400, display: "block" }} />
+                <Button onClick={() => setShowResolved(!showResolved)}>
+                    {showResolved ? "Resolve!" : "Resolved"}
                   </Button>
+                  <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
+                  
+                  
                 </div>
                 <ListView
                   shoppingList={shoppingList}
@@ -111,9 +125,9 @@ let Jokes = createVisualComponent({
   },
 });
 
-Jokes = withRoute(Jokes, { authenticated: true });
+listItems = withRoute(listItems, { authenticated: true });
 
 //@@viewOn:exports
-export { Jokes };
-export default Jokes;
+export { listItems };
+export default listItems;
 //@@viewOff:exports

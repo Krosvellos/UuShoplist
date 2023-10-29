@@ -52,7 +52,7 @@ class UnicornMainAbl {
       const uuBtBaseUri = uuBtUriBuilder.toUri().getBaseUri();
 
       const createAwscDtoIn = {
-        name: "UuUnicorn",
+        name: "UuShoplist",
         typeCode: "uu-unicorn-maing01",
         location: location,
         uuAppWorkspaceUri: baseUri,

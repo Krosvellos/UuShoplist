@@ -29,10 +29,10 @@ const CreateUserForm = createVisualComponent({
 
     return (
       <Form {...elementProps} onSubmit={props.onSubmit}>
-        <FormText name="name" label="name of user" required />
-        <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", paddingTop: 8 }}>
+        <FormText name="name" label="Username" required />
+        <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", paddingTop: 8, }}>
           <CancelButton onClick={props.onCancel}>Cancel</CancelButton>
-          <SubmitButton>Add user</SubmitButton>
+          <SubmitButton>Submit</SubmitButton>
         </div>
       </Form>
     );
