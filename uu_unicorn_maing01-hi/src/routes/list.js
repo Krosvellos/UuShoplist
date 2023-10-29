@@ -3,13 +3,13 @@ import { createVisualComponent } from "uu5g05";
 import { Button } from "uu5g05-elements";
 import { withRoute } from "uu_plus4u5g02-app";
 import Config from "./config/config.js";
-import RouteBar from "../core/route-bar";
-import ListProvider from "../bricks/joke/list-provider";
-import ListView from "../bricks/joke/list-view";
-import CreateView from "../bricks/joke/create-view";
-import CreateUserView from "../bricks/joke/create-user-view.js";
-import NewTitleView from "../bricks/joke/new-title-view.js";
-import UserListView from "../bricks/joke/user-list-view.js";
+import RouteBar from "../core/route-bar.js";
+import ListProvider from "../bricks/list/list-provider.js";
+import ListView from "../bricks/list/list-view.js";
+import CreateView from "../bricks/list/create-view.js";
+import CreateUserView from "../bricks/list/create-user-view.js";
+import NewTitleView from "../bricks/list/new-title-view.js";
+import UserListView from "../bricks/list/user-list-view.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -56,9 +56,9 @@ const Css = {
 };
 
 //@@viewOff:cs
-let Jokes = createVisualComponent({
+let List = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Jokes",
+  uu5Tag: Config.TAG + "List",
   //@@viewOff:statics
 
   render() {
@@ -111,9 +111,9 @@ let Jokes = createVisualComponent({
   },
 });
 
-Jokes = withRoute(Jokes, { authenticated: true });
+List = withRoute(List, { authenticated: true });
 
 //@@viewOn:exports
-export { Jokes };
-export default Jokes;
+export { List };
+export default List;
 //@@viewOff:exports

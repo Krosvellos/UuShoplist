@@ -32,6 +32,6 @@
   "Menu": {
     "home": "Welcome",
     "about": "About Application",
-    "jokes": "Jokes"
+    "list": "List"
   }
 }
