@@ -16,12 +16,10 @@ const initialJokeList = {
     {
       id: Utils.String.generateId(),
       name: "Bunny ate the wedding ring!",
-   
     },
     {
       id: Utils.String.generateId(),
       name: "F5",
-    
     },
   ],
 
@@ -29,7 +27,6 @@ const initialJokeList = {
     {
       id: Utils.String.generateId(),
       name: "Joke with image",
-  
     },
   ],
 };
@@ -118,7 +115,7 @@ const ListProvider = createComponent({
       });
     }
 
-    function renameList(value) {
+    function changeListName(value) {
       setJokeList((prevList) => ({
         ...prevList,
         listName: value,
@@ -128,7 +125,17 @@ const ListProvider = createComponent({
     //@@viewOff:private
 
     //@@viewOn:render
-    const value = { jokeList, remove, update, create, removeUser, createUser, renameList, showResolved, setShowResolved };
+    const value = {
+      jokeList,
+      remove,
+      update,
+      create,
+      removeUser,
+      createUser,
+      changeListName,
+      showResolved,
+      setShowResolved,
+    };
     return typeof props.children === "function" ? props.children(value) : props.children;
     //@@viewOff:render
   },

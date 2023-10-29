@@ -1,12 +1,12 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
+import { Box, Text, Line, Button, DateTime, Icon } from "uu5g05-elements";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
-const Tile = createVisualComponent({
+const ResolvedTile = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Tile",
+  uu5Tag: Config.TAG + "ResolvedTile",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -25,14 +25,6 @@ const Tile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
-    function handleDelete(event) {
-      props.onDelete(new Utils.Event(props.joke, event));
-    }
-
-    function handleUpdate(event) {
-      props.onUpdate(new Utils.Event(props.joke, event));
-    }
-
     //@@viewOff:private
 
     //@@viewOn:render
@@ -45,13 +37,9 @@ const Tile = createVisualComponent({
             {props.joke.name}
           </Text>
           <Box significance="distinct">
-            <Button
-              icon="mdi-update"
-              onClick={handleUpdate}
-              significance="subdued"
-              tooltip="Resolve"
-            />
-            <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
+           
+              <Icon icon="fa-check" style={{fontSize: 40}}/>
+      
           </Box>
         </div>
       </Box>
@@ -61,6 +49,6 @@ const Tile = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { Tile };
-export default Tile;
+export { ResolvedTile };
+export default ResolvedTile;
 //@@viewOff:exports

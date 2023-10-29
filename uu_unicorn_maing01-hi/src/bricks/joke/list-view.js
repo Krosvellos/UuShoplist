@@ -2,9 +2,9 @@
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
 import Tile from "./tile";
+import ResolvedTile from "./resolved-tile";
 import Config from "./config/config.js";
 //@@viewOff:imports
-
 
 //@@viewOn:css
 const Css = {
@@ -32,8 +32,6 @@ const Css = {
 };
 
 //@@viewOff:css
-
-
 
 const ListView = createVisualComponent({
   //@@viewOn:statics
@@ -82,17 +80,17 @@ const ListView = createVisualComponent({
 
     function handleUpdate(event) {
       const id = event.data;
-     
+
       try {
         props.onUpdate(id.id);
         addAlert({
-          message: `The joke ${joke.name} has been updated.`,
+          message: `The item ${id.name} has been updated.`,
           priority: "success",
           durationMs: 2000,
         });
       } catch (error) {
-        ListView.logger.error("Error updating joke", error + "ID OF ERROR " +id.id);
-        showError(error, "Joke update failed!");
+        ListView.logger.error("Error resolving item", error + "ID OF ERROR " + id.id);
+        showError(error, "Item resolve failed!");
       }
     }
     //@@viewOff:private
@@ -101,14 +99,12 @@ const ListView = createVisualComponent({
     const attrs = Utils.VisualComponent.getAttrs(props);
 
     return (
-      <div {...attrs} >
+      <div {...attrs}>
         {props.showResolved
           ? props.jokeList.resolvedShoppingLists.map((joke) => (
-              <Tile
+              <ResolvedTile
                 key={joke.id}
                 joke={joke}
-                onDelete={handleDelete}
-                onUpdate={handleUpdate}
                 className={Css.listViewTile()}
               />
             ))

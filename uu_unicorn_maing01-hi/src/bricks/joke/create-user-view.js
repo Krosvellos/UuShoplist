@@ -51,11 +51,11 @@ const CreateUserView = createVisualComponent({
         joke = props.onCreate(event.data.value);
       } catch (error) {
         // We pass Error.Message instance to the Uu5Forms.Form that shows alert
-        throw new Utils.Error.Message("Joke create failed!", error);
+        throw new Utils.Error.Message("User create failed!", error);
       }
 
       addAlert({
-        message: `Joke ${joke.name} has been created.`,
+        message: `User ${joke.name} has been created.`,
         priority: "success",
         durationMs: 2000,
       });

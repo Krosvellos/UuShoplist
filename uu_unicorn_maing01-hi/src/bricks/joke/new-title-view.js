@@ -45,24 +45,23 @@ const NewTitleView = createVisualComponent({
     const [mode, setMode] = useState(Mode.BUTTON);
 
     function handleSubmit(event) {
-      let joke;
+      console.log("Event object:", event);
 
       try {
-        joke = props.changeListName(event.data.value);
-        console.log(joke);
+        const newName = event.data.value.name;
+        props.changeListName(newName);
+        addAlert({
+          message: `List title has been updated to ${newName}.`,
+          priority: "success",
+          durationMs: 2000,
+        });
       } catch (error) {
-        // We pass Error.Message instance to the Uu5Forms.Form that shows alert
-        throw new Utils.Error.Message("Joke create failed!", error);
+        console.error(error);
+        throw new Utils.Error.Message("Title update failed!", error);
       }
-
-      addAlert({
-        message: `Joke ${joke.name} has been created.`,
-        priority: "success",
-        durationMs: 2000,
-      });
-
       setMode(Mode.BUTTON);
     }
+
     //@@viewOff:private
 
     //@@viewOn:render

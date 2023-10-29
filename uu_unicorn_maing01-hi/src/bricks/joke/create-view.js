@@ -16,7 +16,7 @@ const Mode = {
 function CreateButton(props) {
   return (
     <Button {...props} colorScheme="primary" significance="highlighted">
-      Create joke
+      Create Item
     </Button>
   );
 }
@@ -55,7 +55,7 @@ const CreateView = createVisualComponent({
       }
 
       addAlert({
-        message: `Joke ${joke.name} has been created.`,
+        message: `Item ${joke.name} has been created.`,
         priority: "success",
         durationMs: 2000,
       });
