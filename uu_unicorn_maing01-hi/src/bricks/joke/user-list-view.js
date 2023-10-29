@@ -66,7 +66,7 @@ const UserListView = createVisualComponent({
 
     return (
       <div {...attrs}>
-        {props.jokeList.userList.map((joke) => (
+        {props.shoppingList.userList.map((joke) => (
           <div style={{ display: "flex", flexDirection: "row", gap: 8 }} key={joke.id}>
             <UserTile
               name={joke.name}
@@ -83,6 +83,6 @@ const UserListView = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { UserListView as UserList };
+export { UserListView };
 export default UserListView;
 //@@viewOff:exports

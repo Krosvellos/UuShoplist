@@ -5,28 +5,28 @@ import Config from "./config/config";
 //@@viewOff:imports
 
 const initialJokeList = {
-  id: "xdd",
-  listName: "Honzův list",
+  id: "123456",
+  listName: "John list",
   userList: [
-    { id: Utils.String.generateId(), name: "Honza" },
-    { id: Utils.String.generateId(), name: "Jakub" },
+    { id: Utils.String.generateId(), name: "John" },
+    { id: Utils.String.generateId(), name: "Jacob" },
     { id: Utils.String.generateId(), name: "Daniel" },
   ],
   singleShoppingList: [
     {
       id: Utils.String.generateId(),
-      name: "Bunny ate the wedding ring!",
+      name: "Banana",
     },
     {
       id: Utils.String.generateId(),
-      name: "F5",
+      name: "Egg",
     },
   ],
 
   resolvedShoppingLists: [
     {
       id: Utils.String.generateId(),
-      name: "Joke with image",
+      name: "Bread",
     },
   ],
 };
@@ -47,30 +47,30 @@ const ListProvider = createComponent({
   render(props) {
     //@@viewOn:private
     const [showResolved, setShowResolved] = useState(false);
-    const [jokeList, setJokeList] = useState(initialJokeList);
-    const [resolvedJokes, setResolvedJokes] = useState(initialJokeList.resolvedShoppingLists);
+    const [shoppingList, setShoppingList] = useState(initialJokeList);
+    const [resolvedShoppingList, setResolvedShoppingList] = useState(initialJokeList.resolvedShoppingLists);
 
     useEffect(() => {
-      console.log(resolvedJokes);
-      console.log(jokeList.singleShoppingList);
-    }, [resolvedJokes]);
+      console.log(resolvedShoppingList);
+      console.log(shoppingList.singleShoppingList);
+    }, [resolvedShoppingList]);
 
-    function remove(joke) {
-      setJokeList((prevJokeList) => ({
-        ...prevJokeList,
-        singleShoppingList: prevJokeList.singleShoppingList.filter((item) => item.id !== joke.id),
+    function remove(list) {
+      setShoppingList((prevShoppingList) => ({
+        ...prevShoppingList,
+        singleShoppingList: prevShoppingList.singleShoppingList.filter((item) => item.id !== list.id),
       }));
     }
 
-    function removeUser(joke) {
-      setJokeList((prevJokeList) => ({
-        ...prevJokeList,
-        userList: prevJokeList.userList.filter((item) => item.id !== joke.id),
+    function removeUser(list) {
+      setShoppingList((prevShoppingList) => ({
+        ...prevShoppingList,
+        userList: prevShoppingList.userList.filter((item) => item.id !== list.id),
       }));
     }
 
     function create(values) {
-      const joke = {
+      const list = {
         ...values,
         id: Utils.String.generateId(),
         sys: {
@@ -78,12 +78,12 @@ const ListProvider = createComponent({
         },
       };
 
-      setJokeList((prevJokeList) => ({
-        ...prevJokeList,
-        singleShoppingList: [...prevJokeList.singleShoppingList, joke],
+      setShoppingList((prevShoppingList) => ({
+        ...prevShoppingList,
+        singleShoppingList: [...prevShoppingList.singleShoppingList, list],
       }));
 
-      return joke;
+      return list;
     }
 
     function createUser(values) {
@@ -92,7 +92,7 @@ const ListProvider = createComponent({
         id: Utils.String.generateId(),
       };
 
-      setJokeList((prevUserList) => ({
+      setShoppingList((prevUserList) => ({
         ...prevUserList,
         userList: [...prevUserList.userList, user],
       }));
@@ -102,21 +102,21 @@ const ListProvider = createComponent({
 
     function update(id) {
       console.log("Updating joke with id:", id);
-      setJokeList((prevJokeList) => {
-        const updatedJoke = prevJokeList.singleShoppingList.find((item) => item.id === id);
-        setResolvedJokes((prevResolved) => [...prevResolved, updatedJoke]);
-        console.log("Joke updated. Moving to resolvedShoppingLists:", updatedJoke);
+      setShoppingList((prevShoppingList) => {
+        const updatedList = prevShoppingList.singleShoppingList.find((item) => item.id === id);
+        setResolvedShoppingList((prevResolved) => [...prevResolved, updatedList]);
+        console.log("Joke updated. Moving to resolvedShoppingLists:", updatedList);
 
         return {
-          ...prevJokeList,
-          singleShoppingList: prevJokeList.singleShoppingList.filter((item) => item.id !== id),
-          resolvedShoppingLists: [...prevJokeList.resolvedShoppingLists, updatedJoke],
+          ...prevShoppingList,
+          singleShoppingList: prevShoppingList.singleShoppingList.filter((item) => item.id !== id),
+          resolvedShoppingLists: [...prevShoppingList.resolvedShoppingLists, updatedList],
         };
       });
     }
 
     function changeListName(value) {
-      setJokeList((prevList) => ({
+      setShoppingList((prevList) => ({
         ...prevList,
         listName: value,
       }));
@@ -126,7 +126,7 @@ const ListProvider = createComponent({
 
     //@@viewOn:render
     const value = {
-      jokeList,
+      shoppingList,
       remove,
       update,
       create,

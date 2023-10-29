@@ -45,17 +45,17 @@ const CreateUserView = createVisualComponent({
     const [mode, setMode] = useState(Mode.BUTTON);
 
     function handleSubmit(event) {
-      let joke;
+      let user;
 
       try {
-        joke = props.onCreate(event.data.value);
+        user = props.onCreate(event.data.value);
       } catch (error) {
         // We pass Error.Message instance to the Uu5Forms.Form that shows alert
         throw new Utils.Error.Message("User create failed!", error);
       }
 
       addAlert({
-        message: `User ${joke.name} has been created.`,
+        message: `User ${user.name} has been created.`,
         priority: "success",
         durationMs: 2000,
       });

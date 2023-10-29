@@ -44,7 +44,7 @@ const ListView = createVisualComponent({
 
   //@@viewOn:defaultProps
   defaultProps: {
-    jokeList: [],
+    shoppingList: [],
     onUpdate: () => {},
     onDelete: () => {},
   },
@@ -63,18 +63,18 @@ const ListView = createVisualComponent({
     }
 
     function handleDelete(event) {
-      const joke = event.data;
+      const list = event.data;
 
       try {
-        props.onDelete(joke);
+        props.onDelete(list);
         addAlert({
-          message: `The joke ${joke.name} has been deleted.`,
+          message: `The joke ${list.name} has been deleted.`,
           priority: "success",
           durationMs: 2000,
         });
       } catch (error) {
-        ListView.logger.error("Error deleting joke", error);
-        showError(error, "Joke delete failed!");
+        ListView.logger.error("Error deleting list", error);
+        showError(error, "List delete failed!");
       }
     }
 
@@ -89,7 +89,7 @@ const ListView = createVisualComponent({
           durationMs: 2000,
         });
       } catch (error) {
-        ListView.logger.error("Error resolving item", error + "ID OF ERROR " + id.id);
+        ListView.logger.error("Error resolving item", error);
         showError(error, "Item resolve failed!");
       }
     }
@@ -101,10 +101,10 @@ const ListView = createVisualComponent({
     return (
       <div {...attrs}>
         {props.showResolved
-          ? props.jokeList.resolvedShoppingLists.map((joke) => (
+          ? props.shoppingList.resolvedShoppingLists.map((joke) => (
               <ResolvedTile key={joke.id} joke={joke} className={Css.listViewTile()} />
             ))
-          : props.jokeList.singleShoppingList.map((joke) => (
+          : props.shoppingList.singleShoppingList.map((joke) => (
               <Tile
                 key={joke.id}
                 joke={joke}

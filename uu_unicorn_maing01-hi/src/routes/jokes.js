@@ -68,7 +68,7 @@ let Jokes = createVisualComponent({
         <RouteBar />
         <ListProvider>
           {({
-            jokeList,
+            shoppingList,
             remove,
             update,
             create,
@@ -83,10 +83,10 @@ let Jokes = createVisualComponent({
               <div className={Css.userListContainer()}>
                 <h1>USER LIST</h1>
                 <CreateUserView onCreate={createUser} style={{ maxWidth: 400, display: "block" }} />
-                <UserListView jokeList={jokeList} onDelete={removeUser} />
+                <UserListView shoppingList={shoppingList} onDelete={removeUser} />
               </div>
               <div className={Css.icon()}>
-                <h1> {jokeList.listName}</h1>
+                <h1> {shoppingList.listName}</h1>
                 <div className={Css.ListButtons()}>
                   <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
                   <CreateView onCreate={create} style={{ maxWidth: 400, display: "block" }} />
@@ -95,7 +95,7 @@ let Jokes = createVisualComponent({
                   </Button>
                 </div>
                 <ListView
-                  jokeList={jokeList}
+                  shoppingList={shoppingList}
                   showResolved={showResolved}
                   resolvedItems={resolvedItems}
                   onDelete={remove}
