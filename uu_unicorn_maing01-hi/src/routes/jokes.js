@@ -29,8 +29,11 @@ const Css = {
   screen: () =>
     Config.Css.css({
       display: "flex",
-      flexDirection: "row",
+      flexDirection: "column", // Change to column for smaller screens
       justifyContent: "space-around",
+      "@media (min-width: 768px)": {
+        flexDirection: "row", // Change back to row for larger screens
+      },
     }),
   userListContainer: () =>
     Config.Css.css({
@@ -38,14 +41,17 @@ const Css = {
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      marginRight: 80,
-      gap: 10
+      marginRight: 0, // Remove right margin for smaller screens
+      gap: 10,
     }),
   ListButtons: () =>
     Config.Css.css({
       display: "flex",
-      flexDirection: "row",
+      flexDirection: "column", // Change to column for smaller screens
       gap: 10,
+      "@media (min-width: 768px)": {
+        flexDirection: "row", // Change back to row for larger screens
+      },
     }),
 };
 

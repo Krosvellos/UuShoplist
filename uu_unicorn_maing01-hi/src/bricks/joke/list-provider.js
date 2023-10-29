@@ -16,21 +16,22 @@ const initialJokeList = {
     {
       id: Utils.String.generateId(),
       name: "Bunny ate the wedding ring!",
-      resolved: false,
+   
     },
     {
       id: Utils.String.generateId(),
       name: "F5",
-      resolved: false,
-    },
-    {
-      id: Utils.String.generateId(),
-      name: "Joke with image",
-      resolved: false,
+    
     },
   ],
 
-  resolvedShoppingLists: [],
+  resolvedShoppingLists: [
+    {
+      id: Utils.String.generateId(),
+      name: "Joke with image",
+  
+    },
+  ],
 };
 
 const ListProvider = createComponent({

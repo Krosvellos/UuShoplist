@@ -79,6 +79,6 @@ const NewTitleView = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { NewTitleView as CreateUserView };
+export { NewTitleView };
 export default NewTitleView;
 //@@viewOff:exports

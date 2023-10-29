@@ -5,6 +5,36 @@ import Tile from "./tile";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
+
+//@@viewOn:css
+const Css = {
+  // ... (your existing styles)
+
+  listViewContainer: () =>
+    Config.Css.css({
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+    }),
+
+  listViewTile: () =>
+    Config.Css.css({
+      width: 800,
+      margin: "24px",
+      "@media (max-width: 1000px)": {
+        width: 600, // Adjust as needed for smaller screens
+      },
+      "@media (max-width: 768px)": {
+        width: 400, // Adjust as needed for smaller screens
+      },
+      // Add more media queries for different screen sizes if necessary
+    }),
+};
+
+//@@viewOff:css
+
+
+
 const ListView = createVisualComponent({
   //@@viewOn:statics
   uu5Tag: Config.TAG + "ListView",
@@ -71,7 +101,7 @@ const ListView = createVisualComponent({
     const attrs = Utils.VisualComponent.getAttrs(props);
 
     return (
-      <div {...attrs}>
+      <div {...attrs} >
         {props.showResolved
           ? props.jokeList.resolvedShoppingLists.map((joke) => (
               <Tile
@@ -79,7 +109,7 @@ const ListView = createVisualComponent({
                 joke={joke}
                 onDelete={handleDelete}
                 onUpdate={handleUpdate}
-                style={{ width: 1000, margin: "24px auto" }}
+                className={Css.listViewTile()}
               />
             ))
           : props.jokeList.singleShoppingList.map((joke) => (
@@ -88,7 +118,7 @@ const ListView = createVisualComponent({
                 joke={joke}
                 onDelete={handleDelete}
                 onUpdate={handleUpdate}
-                style={{ width: 1000, margin: "24px auto" }}
+                className={Css.listViewTile()}
               />
             ))}
       </div>
