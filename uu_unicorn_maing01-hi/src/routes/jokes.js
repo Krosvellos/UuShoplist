@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent} from "uu5g05";
+import { createVisualComponent } from "uu5g05";
 import { Button } from "uu5g05-elements";
 import { withRoute } from "uu_plus4u5g02-app";
 import Config from "./config/config.js";
@@ -88,9 +88,9 @@ let Jokes = createVisualComponent({
               <div className={Css.icon()}>
                 <h1> {jokeList.listName}</h1>
                 <div className={Css.ListButtons()}>
-                <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
+                  <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
                   <CreateView onCreate={create} style={{ maxWidth: 400, display: "block" }} />
-                  <Button onClick={() => setShowResolved(!showResolved)}>resolved</Button>
+                  <Button onClick={() => setShowResolved(!showResolved)}>{showResolved ? "not resolved" : "resolved"}</Button>
                 </div>
                 <ListView
                   jokeList={jokeList}

@@ -84,7 +84,7 @@ const ListView = createVisualComponent({
       try {
         props.onUpdate(id.id);
         addAlert({
-          message: `The item ${id.name} has been updated.`,
+          message: `The item ${id.name} has been resolved.`,
           priority: "success",
           durationMs: 2000,
         });

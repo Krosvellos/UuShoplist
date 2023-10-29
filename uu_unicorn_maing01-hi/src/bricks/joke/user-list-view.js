@@ -47,7 +47,7 @@ const UserListView = createVisualComponent({
       try {
         props.onDelete(user);
         addAlert({
-          message: `The joke ${user.name} has been deleted.`,
+          message: `The user ${user.name} has been deleted.`,
           priority: "success",
           durationMs: 2000,
         });
