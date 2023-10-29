@@ -22,7 +22,7 @@ const Css = {
       width: 800,
       margin: "24px",
       "@media (max-width: 1000px)": {
-        width: 600, // Adjust as needed for smaller screens
+        width: 550, // Adjust as needed for smaller screens
       },
       "@media (max-width: 768px)": {
         width: 400, // Adjust as needed for smaller screens
