@@ -1,11 +1,10 @@
 {
   "{asid}": {
     "profileList": ["AsidAuthorities", "AsidExecutives", "AsidLicenseOwner", "Public"],
-    "useCaseMap": {
-    }
+    "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "Public", "Authenticated", "AwidInitiator"],
+    "profileList": ["Authorities", "Executives", "Readers", "AwidLicenseOwner", "Public", "Authenticated", "AwidInitiator"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created", "assigned"],
@@ -13,7 +12,7 @@
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["active"],
-        "profileList": ["Authenticated"]
+        "profileList": ["Authorities", "Executives", "Readers"]
       },
       "sys/uuAppWorkspace/loadBasicData": {
         "sysStateList": ["active"],
@@ -32,7 +31,7 @@
       },
       "joke/create": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Executives", "Readers"]
       }
     }
   }

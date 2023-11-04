@@ -1,6 +1,6 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Box, Text, Line, Button, DateTime, Icon } from "uu5g05-elements";
+import { Box, Text, Icon } from "uu5g05-elements";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
