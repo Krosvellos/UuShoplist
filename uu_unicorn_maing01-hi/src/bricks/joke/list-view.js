@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
 import { useAlertBus } from "uu5g05-elements";
-import Tile from "./tile";
+import Buttonsing from "./buttonsing";
 import ResolvedTile from "./resolved-tile";
 import Config from "./config/config.js";
 //@@viewOff:imports
@@ -106,7 +106,7 @@ const ListView = createVisualComponent({
               <ResolvedTile key={joke.id} joke={joke} className={Css.listViewTile()} />
             ))
           : props.shoppingList.singleShoppingList.map((joke) => (
-              <Tile
+              <Buttonsing
                 key={joke.id}
                 joke={joke}
                 onDelete={handleDelete}

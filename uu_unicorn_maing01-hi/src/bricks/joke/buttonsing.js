@@ -4,9 +4,9 @@ import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
-const Tile = createVisualComponent({
+const Buttonsing = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Tile",
+  uu5Tag: Config.TAG + "Buttonsing",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -56,6 +56,6 @@ const Tile = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { Tile };
-export default Tile;
+export { Buttonsing };
+export default Buttonsing;
 //@@viewOff:exports

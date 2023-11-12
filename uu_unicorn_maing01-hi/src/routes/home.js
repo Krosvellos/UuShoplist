@@ -60,9 +60,9 @@ let Home = createVisualComponent({
         <RouteBar />
         
         <div style={containerStyles}>
-      <h1>Frontend - Domácí Úkol 2</h1>
+      <h1>Frontend - Domácí Úkol 3</h1>
       <div>
-        <b>Přeji krásný den! Domácí úkol naleznete v "Košík".</b>
+        <b>Přeji krásný den! Domácí úkol naleznete v "Seznamy".</b>
         
       </div>
     </div>

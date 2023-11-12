@@ -57,7 +57,7 @@ const CreateUserView = createVisualComponent({
       addAlert({
         message: `User ${user.name} has been created.`,
         priority: "success",
-        durationMs: 2000,
+        durationMs: 1800,
       });
 
       setMode(Mode.BUTTON);

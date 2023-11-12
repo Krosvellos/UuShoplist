@@ -12,6 +12,6 @@ const CONFIG = {
   },
 };
 
-describe(`UuShoplist.Bricks.Joke.ListView`, () => {
-  testProperties(UuShoplist.Bricks.Joke.ListView, CONFIG);
+describe(`UuShoplist.Bricks.Joke.Tilelist`, () => {
+  testProperties(UuShoplist.Bricks.Joke.Tilelist, CONFIG);
 });

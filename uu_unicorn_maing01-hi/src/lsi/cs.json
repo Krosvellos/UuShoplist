@@ -32,6 +32,7 @@
   "Menu": {
     "home": "Vítejte",
     "about": "O aplikaci",
-    "jokes": "Košík"
+    "jokes": "Košík",
+    "tilesexample": "Seznamy"
   }
 }
