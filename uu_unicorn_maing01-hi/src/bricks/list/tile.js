@@ -1,12 +1,12 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils } from "uu5g05";
-import { Box, Text, Line, Button, DateTime, Icon } from "uu5g05-elements";
+import { Box, Text, Line, Button, DateTime } from "uu5g05-elements";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
-const ResolvedTile = createVisualComponent({
+const Buttonsing = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "ResolvedTile",
+  uu5Tag: Config.TAG + "Buttonsing",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -25,6 +25,14 @@ const ResolvedTile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    function handleDelete(event) {
+      props.onDelete(new Utils.Event(props.joke, event));
+    }
+
+    function handleUpdate(event) {
+      props.onUpdate(new Utils.Event(props.joke, event));
+    }
+
     //@@viewOff:private
 
     //@@viewOn:render
@@ -37,7 +45,8 @@ const ResolvedTile = createVisualComponent({
             {props.joke.name}
           </Text>
           <Box significance="distinct">
-            <Icon icon="mdi-check" style={{ fontSize: 35 }} significance="subdued" tooltip="Resolved" />
+            <Button icon="fa-check" onClick={handleUpdate} significance="subdued" tooltip="Resolve" />
+            <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
           </Box>
         </div>
       </Box>
@@ -47,6 +56,6 @@ const ResolvedTile = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { ResolvedTile };
-export default ResolvedTile;
+export { Buttonsing };
+export default Buttonsing;
 //@@viewOff:exports

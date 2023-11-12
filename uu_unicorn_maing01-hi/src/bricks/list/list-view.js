@@ -64,12 +64,17 @@ const ListView = createVisualComponent({
     }
 
     function handleDelete(event) {
-      const list = event.data;
+      const item = event.data;
 
       try {
-        props.onDelete(list);
+        console.log(props.id)
+        props.onDelete(props.id,item.id);
         addAlert({
+<<<<<<< HEAD:uu_unicorn_maing01-hi/src/bricks/joke/list-view.js
           message: `The item ${list.name} has been deleted.`,
+=======
+          message: `The joke ${item.name} has been deleted.`,
+>>>>>>> 79e40d883330a4aa136c140ad84a99f5b5a6a201:uu_unicorn_maing01-hi/src/bricks/list/list-view.js
           priority: "success",
           durationMs: 2000,
         });
@@ -83,7 +88,7 @@ const ListView = createVisualComponent({
       const id = event.data;
 
       try {
-        props.onUpdate(id.id);
+        props.onUpdate(props.id, id.id);
         addAlert({
           message: `The item ${id.name} has been resolved.`,
           priority: "success",
@@ -102,13 +107,20 @@ const ListView = createVisualComponent({
     return (
       <div {...attrs}>
         {props.showResolved
-          ? props.shoppingList.resolvedShoppingLists.map((joke) => (
-              <ResolvedTile key={joke.id} joke={joke} className={Css.listViewTile()} />
+          ? props.resolvedItems.singleShoppingList.map((resolvedItem) => (
+              <ResolvedTile key={resolvedItem.id} joke={resolvedItem} className={Css.listViewTile()} />
             ))
+<<<<<<< HEAD:uu_unicorn_maing01-hi/src/bricks/joke/list-view.js
           : props.shoppingList.singleShoppingList.map((joke) => (
               <Buttonsing
                 key={joke.id}
                 joke={joke}
+=======
+          : props.shoppingList.singleShoppingList.map((item) => (
+              <Tile
+                key={item.id}
+                joke={item}
+>>>>>>> 79e40d883330a4aa136c140ad84a99f5b5a6a201:uu_unicorn_maing01-hi/src/bricks/list/list-view.js
                 onDelete={handleDelete}
                 onUpdate={handleUpdate}
                 className={Css.listViewTile()}
@@ -121,6 +133,6 @@ const ListView = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { ListView };
+export { ListView as ListView };
 export default ListView;
 //@@viewOff:exports

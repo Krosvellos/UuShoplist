@@ -3,14 +3,15 @@ import { createVisualComponent, Utils } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Plus4U5 from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
-
+import ListProvider from "../bricks/list/list-provider.js";
 import Config from "./config/config.js";
 import Home from "../routes/home.js";
 import TilesExample from "../routes/tiles-example.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
-const Jokes = Utils.Component.lazy(() => import("../routes/jokes.js"));
+const List = Utils.Component.lazy(() => import("../routes/list.js"));
+const Lists = Utils.Component.lazy(() => import("../routes/lists.js"));
 const About = Utils.Component.lazy(() => import("../routes/about.js"));
 
 const InitAppWorkspace = Utils.Component.lazy(() => import("../routes/init-app-workspace.js"));
@@ -19,8 +20,13 @@ const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.
 const ROUTE_MAP = {
   "": { redirect: "home" },
   home: (props) => <Home {...props} />,
+<<<<<<< HEAD
   tilesexample: (props) => <TilesExample {...props} />,
   jokes: (props) => <Jokes {...props}/>,
+=======
+  lists: (props) => <Lists {...props} />,
+  list: (props) => <List {...props} />,
+>>>>>>> 79e40d883330a4aa136c140ad84a99f5b5a6a201
   about: (props) => <About {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,
   controlPanel: (props) => <ControlPanel {...props} />,
@@ -62,7 +68,11 @@ const Spa = createVisualComponent({
     return (
       <Plus4U5.SpaProvider initialLanguageList={["en", "cs"]}>
         <Uu5Elements.ModalBus>
-          <Plus4U5App.Spa routeMap={ROUTE_MAP} />
+          <ListProvider>
+
+            <Plus4U5App.Spa routeMap={ROUTE_MAP} />
+
+          </ListProvider>
         </Uu5Elements.ModalBus>
       </Plus4U5.SpaProvider>
     );

@@ -1,7 +1,7 @@
 //@@viewOn:imports
 import { createVisualComponent, PropTypes, Utils, useState } from "uu5g05";
 import { Button, useAlertBus } from "uu5g05-elements";
-import CreateForm from "./create-form.js";
+import CreateUserForm from "./create-user-form.js";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -13,18 +13,18 @@ const Mode = {
 //@@viewOff:constants
 
 //@@viewOn:helpers
-function CreateButton(props) {
+function CreateUserButton(props) {
   return (
     <Button {...props} colorScheme="primary" significance="highlighted">
-      Add Item
+      Add Member
     </Button>
   );
 }
 //@@viewOff:helpers
 
-const CreateView = createVisualComponent({
+const CreateUserView = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "CreateView",
+  uu5Tag: Config.TAG + "CreateUserView",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -45,19 +45,17 @@ const CreateView = createVisualComponent({
     const [mode, setMode] = useState(Mode.BUTTON);
 
     function handleSubmit(event) {
-      let item;
-
       try {
-        item = props.onCreate(event.data.value);
+        props.onCreate(event.data.value);
       } catch (error) {
         // We pass Error.Message instance to the Uu5Forms.Form that shows alert
-        throw new Utils.Error.Message("Item create failed!", error);
+        throw new Utils.Error.Message("User create failed!", error);
       }
 
       addAlert({
-        message: `Item ${item.name} has been created.`,
+        message: `User ${event.data.value.name} has been created.`,
         priority: "success",
-        durationMs: 2000,
+        durationMs: 1800,
       });
 
       setMode(Mode.BUTTON);
@@ -69,15 +67,15 @@ const CreateView = createVisualComponent({
 
     switch (mode) {
       case Mode.BUTTON:
-        return <CreateButton {...elementProps} onClick={() => setMode(Mode.FORM)} />;
+        return <CreateUserButton {...elementProps} onClick={() => setMode(Mode.FORM)} />;
       default:
-        return <CreateForm {...elementProps} onSubmit={handleSubmit} onCancel={() => setMode(Mode.BUTTON)} />;
+        return <CreateUserForm {...elementProps} onSubmit={handleSubmit} onCancel={() => setMode(Mode.BUTTON)} />;
     }
     //@@viewOff:render
   },
 });
 
 //@@viewOn:exports
-export { CreateView };
-export default CreateView;
+export { CreateUserView };
+export default CreateUserView;
 //@@viewOff:exports

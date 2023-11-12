@@ -32,7 +32,12 @@
   "Menu": {
     "home": "Vítejte",
     "about": "O aplikaci",
+<<<<<<< HEAD
     "jokes": "Košík",
     "tilesexample": "Seznamy"
+=======
+    "lists": "Lists",
+    "list": "List"
+>>>>>>> 79e40d883330a4aa136c140ad84a99f5b5a6a201
   }
 }

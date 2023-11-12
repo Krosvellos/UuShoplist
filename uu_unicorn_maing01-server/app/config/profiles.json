@@ -1,11 +1,19 @@
 {
   "{asid}": {
+<<<<<<< HEAD
     "profileList": ["AsidAuthorities","Owner","Member", "AsidExecutives", "AsidLicenseOwner", "Public"],
     "useCaseMap": {
     }
   },
   "*": {
     "profileList": ["Authorities", "Executives","Owner","Member", "AwidLicenseOwner", "Public", "Authenticated", "AwidInitiator"],
+=======
+    "profileList": ["AsidAuthorities", "AsidExecutives", "AsidLicenseOwner", "Public"],
+    "useCaseMap": {}
+  },
+  "*": {
+    "profileList": ["Authorities", "Executives", "Readers", "AwidLicenseOwner", "Public", "Authenticated", "AwidInitiator"],
+>>>>>>> 79e40d883330a4aa136c140ad84a99f5b5a6a201
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created", "assigned"],
@@ -13,7 +21,7 @@
       },
       "sys/uuAppWorkspace/load": {
         "sysStateList": ["active"],
-        "profileList": ["Authenticated"]
+        "profileList": ["Authorities", "Executives", "Readers"]
       },
       "sys/uuAppWorkspace/loadBasicData": {
         "sysStateList": ["active"],
@@ -32,6 +40,7 @@
       },
       "joke/create": {
         "sysStateList": ["active"],
+<<<<<<< HEAD
         "profileList": ["Public"]
       },
       "shoppinglistList/list": {
@@ -93,6 +102,69 @@
       "shoppinglistList/shoppingList/:id/item/resolved/list": {
         "sysStateList": ["active"],
         "profileList": ["Owner", "Member"]
+=======
+        "profileList": ["Executives", "Readers"]
+      },
+      "shoppingLists/list": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS", "MEMBERS"]
+      },
+      "shoppingLists/singleList/:id/item/list": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS", "MEMBERS"]
+      },
+      "shoppingLists/singleList/create": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS"]
+      },
+      "shoppingLists/singleList/:id/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS"]
+      },
+      "shoppingLists/singleList/:id/name/update": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS"]
+      },
+      "shoppingLists/singleList/:id/archived/update": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS"]
+      },
+      "shoppingLists/archived/list": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS", "MEMBERS"]
+      },
+      "shoppingLists/singleList/:id/item/create": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS", "MEMBERS"]
+      },
+      "shoppingLists/singleList/:id/item/:id/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS", "MEMBERS"]
+      },
+      "shoppingLists/singleList/:id/item/:id/resolved/update": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS", "MEMBERS"]
+      },
+      "shoppingLists/singleList/:id/resolved/list": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS", "MEMBERS"]
+      },
+      "shoppingLists/singleList/:id/authorizedUsers/list": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS", "MEMBERS"]
+      },
+      "shoppingLists/singleList/:id/authorizedUsers/create": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS"]
+      },
+      "shoppingLists/singleList/:id/authorizedUsers/:id/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["CREATORS"]
+      },
+      "shoppingLists/singleList/:id/authorizedUsers/:myID/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["MEMBERS"]
+>>>>>>> 79e40d883330a4aa136c140ad84a99f5b5a6a201
       }
     }
   }
