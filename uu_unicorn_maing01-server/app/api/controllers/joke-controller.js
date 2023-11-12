@@ -13,7 +13,7 @@ class JokeController {
   create(ucEnv) {
     let dtoIn = ucEnv.getDtoIn();
     let awid = ucEnv.getUri().getAwid();
-    let session = ucEnv.getSession()
+    let session = ucEnv.getSession();
     let authorizationResult = ucEnv.getAuthorizationResult();
     return JokeAbl.create(awid, dtoIn, session, authorizationResult);
   }

@@ -2,34 +2,67 @@
 import { useEffect } from "uu5g05";
 import { createComponent, Utils, useState } from "uu5g05";
 import Config from "./config/config";
+import Context from "../list-context";
 //@@viewOff:imports
 
-const initialJokeList = {
-  id: "123456",
-  listName: "John list",
-  userList: [
-    { id: Utils.String.generateId(), name: "John" },
-    { id: Utils.String.generateId(), name: "Jacob" },
-    { id: Utils.String.generateId(), name: "Daniel" },
-  ],
-  singleShoppingList: [
-    {
-      id: Utils.String.generateId(),
-      name: "Banana",
-    },
-    {
-      id: Utils.String.generateId(),
-      name: "Egg",
-    },
-  ],
+const initialLists = [
+  {
+    id: "123456",
+    listName: "John list",
+    userList: [
+      { id: Utils.String.generateId(), name: "John" },
+      { id: Utils.String.generateId(), name: "Jacob" },
+      { id: Utils.String.generateId(), name: "Daniel" },
+    ],
+    singleShoppingList: [
+      {
+        id: Utils.String.generateId(),
+        name: "Banana",
+        resolved: false,
+      },
+      {
+        id: Utils.String.generateId(),
+        name: "Egg",
+        resolved: true,
+      },
+    ],
 
-  resolvedShoppingLists: [
-    {
-      id: Utils.String.generateId(),
-      name: "Bread",
-    },
-  ],
-};
+    resolvedShoppingLists: [
+      {
+        id: Utils.String.generateId(),
+        name: "Bread",
+      },
+    ],
+  },
+  {
+    id: "12345612",
+    listName: "matheo list",
+    userList: [
+      { id: Utils.String.generateId(), name: "jimmy" },
+      { id: Utils.String.generateId(), name: "neutron" },
+      { id: Utils.String.generateId(), name: "bastl" },
+    ],
+    singleShoppingList: [
+      {
+        id: Utils.String.generateId(),
+        name: "egg white",
+        resolved: false,
+      },
+      {
+        id: Utils.String.generateId(),
+        name: "ham",
+        resolved: true,
+      },
+    ],
+
+    resolvedShoppingLists: [
+      {
+        id: Utils.String.generateId(),
+        name: "Bread",
+      },
+    ],
+  },
+];
 
 const ListProvider = createComponent({
   //@@viewOn:statics
@@ -46,97 +79,118 @@ const ListProvider = createComponent({
 
   render(props) {
     //@@viewOn:private
-    const [showResolved, setShowResolved] = useState(false);
-    const [shoppingList, setShoppingList] = useState(initialJokeList);
-    const [resolvedShoppingList, setResolvedShoppingList] = useState(initialJokeList.resolvedShoppingLists);
+    const [lists, setLists] = useState(initialLists); // State to manage multiple lists
+    const [currentListId, setCurrentListId] = useState(initialLists[0]?.id); // Initialize with the ID of the first list
 
-    useEffect(() => {
-      console.log(resolvedShoppingList);
-      console.log(shoppingList.singleShoppingList);
-    }, [resolvedShoppingList]);
-
-    function remove(list) {
-      setShoppingList((prevShoppingList) => ({
-        ...prevShoppingList,
-        singleShoppingList: prevShoppingList.singleShoppingList.filter((item) => item.id !== list.id),
-      }));
+    // Function to change the currently selected list
+    function selectList(listId) {
+      setCurrentListId(listId);
     }
 
-    function removeUser(list) {
-      setShoppingList((prevShoppingList) => ({
-        ...prevShoppingList,
-        userList: prevShoppingList.userList.filter((item) => item.id !== list.id),
-      }));
+    // CRUD operations adapted for multiple lists:
+
+    function create(list) {
+      setLists((prevLists) => [...prevLists, { ...list, id: Utils.String.generateId() }]);
     }
 
-    function create(values) {
-      const list = {
-        ...values,
-        id: Utils.String.generateId(),
-        sys: {
-          cts: new Date().toISOString(),
-        },
-      };
-
-      setShoppingList((prevShoppingList) => ({
-        ...prevShoppingList,
-        singleShoppingList: [...prevShoppingList.singleShoppingList, list],
-      }));
-
-      return list;
+    function update(listId, updatedFields) {
+      setLists((prevLists) => prevLists.map((list) => (list.id === listId ? { ...list, ...updatedFields } : list)));
     }
 
-    function createUser(values) {
-      const user = {
-        ...values,
-        id: Utils.String.generateId(),
-      };
-
-      setShoppingList((prevUserList) => ({
-        ...prevUserList,
-        userList: [...prevUserList.userList, user],
-      }));
-
-      return user;
+    function remove(listId) {
+      setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
     }
 
-    function update(id) {
-      console.log("Updating joke with id:", id);
-      setShoppingList((prevShoppingList) => {
-        const updatedList = prevShoppingList.singleShoppingList.find((item) => item.id === id);
-        setResolvedShoppingList((prevResolved) => [...prevResolved, updatedList]);
-        console.log("Joke updated. Moving to resolvedShoppingLists:", updatedList);
-
-        return {
-          ...prevShoppingList,
-          singleShoppingList: prevShoppingList.singleShoppingList.filter((item) => item.id !== id),
-          resolvedShoppingLists: [...prevShoppingList.resolvedShoppingLists, updatedList],
-        };
-      });
+    function createItem(listId, item) {
+      setLists((prevLists) =>
+        prevLists.map((list) =>
+          list.id === listId
+            ? { ...list, singleShoppingList: [...list.singleShoppingList, { ...item,id: Utils.String.generateId() }] }
+            : list
+        )
+      );
     }
 
-    function changeListName(value) {
-      setShoppingList((prevList) => ({
-        ...prevList,
-        listName: value,
-      }));
+    function createUser(userName) {
+      setLists((prevLists) =>
+        prevLists.map((list) => {
+          if (list.id === currentListId) {
+            const newUser = { id: Utils.String.generateId(), name: userName.name };
+            return { ...list, userList: [...list.userList, newUser] };
+          }
+          return list;
+        })
+      );
+    }
+
+    function updateItem(listId, itemId, updatedFields) {
+      setLists((prevLists) =>
+        prevLists.map((list) =>
+          list.id === listId
+            ? {
+                ...list,
+                singleShoppingList: list.singleShoppingList.map((item) =>
+                  item.id === itemId ? { ...item, ...updatedFields } : item
+                ),
+              }
+            : list
+        )
+      );
+    }
+
+    function removeItem(listId, itemId) {
+      setLists((prevLists) =>
+        prevLists.map((list) =>
+          list.id === listId
+            ? {
+                ...list,
+                singleShoppingList: list.singleShoppingList.filter((item) => item.id !== itemId),
+              }
+            : list
+        )
+      );
+    }
+
+    // Function to change the name of the current list
+    function changeListName(newName) {
+      setLists((prevLists) =>
+        prevLists.map((list) => (list.id === currentListId ? { ...list, listName: newName } : list))
+      );
+    }
+
+    // Function to remove a user from the userList of the current list
+    function removeUser(userId) {
+      setLists((prevLists) =>
+        prevLists.map((list) =>
+          list.id === currentListId ? { ...list, userList: list.userList.filter((user) => user.id !== userId.id) } : list
+        )
+      );
     }
 
     //@@viewOff:private
 
     //@@viewOn:render
     const value = {
-      shoppingList,
-      remove,
-      update,
+      lists,
+      currentListId,
+      selectList,
       create,
-      removeUser,
+      update,
+      remove,
+      createItem,
+      updateItem,
+      removeItem,
       createUser,
+      removeUser,
       changeListName,
-      showResolved,
-      setShowResolved,
+      // Add any additional functions or state variables here as needed
     };
-    return typeof props.children === "function" ? props.children(value) : props.children;
+
+    return (
+      <Context.Provider value={value}>
+        {typeof props.children === "function" ? props.children(value) : props.children}
+      </Context.Provider>
+    );
     //@@viewOff:render
   },
 });

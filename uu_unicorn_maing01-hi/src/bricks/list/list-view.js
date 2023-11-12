@@ -66,7 +66,8 @@ const ListView = createVisualComponent({
       const list = event.data;
 
       try {
-        props.onDelete(list);
+        console.log(props.id)
+        props.onDelete(props.id,list.id);
         addAlert({
           message: `The joke ${list.name} has been deleted.`,
           priority: "success",
@@ -101,9 +102,7 @@ const ListView = createVisualComponent({
     return (
       <div {...attrs}>
         {props.showResolved
-          ? props.shoppingList.resolvedShoppingLists.map((joke) => (
-              <ResolvedTile key={joke.id} joke={joke} className={Css.listViewTile()} />
-            ))
+          ? props.resolvedItems.map((joke) => <ResolvedTile key={joke.id} joke={joke} className={Css.listViewTile()} />)
           : props.shoppingList.singleShoppingList.map((joke) => (
               <Tile
                 key={joke.id}
@@ -120,6 +119,6 @@ const ListView = createVisualComponent({
 });
 
 //@@viewOn:exports
-export { ListView };
+export { ListView as ListView };
 export default ListView;
 //@@viewOff:exports
