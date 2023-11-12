@@ -1,12 +1,9 @@
 //@@viewOn:imports
 import { createVisualComponent } from "uu5g05";
-import { Button } from "uu5g05-elements";
 import { withRoute } from "uu_plus4u5g02-app";
-import { RouteController } from "uu_plus4u5g02-app";
-import { useRoute } from "uu5g05";
+import { Button } from "uu5g05-elements";
 import Config from "./config/config.js";
 import RouteBar from "../core/route-bar.js";
-import ListProvider from "../bricks/list/list-provider.js";
 import ListView from "../bricks/list/list-view.js";
 import CreateView from "../bricks/list/create-view.js";
 import CreateUserView from "../bricks/list/create-user-view.js";
@@ -65,10 +62,28 @@ let List = createVisualComponent({
   //@@viewOff:statics
 
   render() {
-    const [route] = useRoute();
-
-    const { lists, currentListId,createUser, selectList, create, update, remove, createItem, updateItem, removeItem, changeListName, removeUser } = useJokes();
-        const currentList = lists.find((list) => list.id === currentListId) || {};
+    const {
+      lists,
+      currentListId,
+      createUser,
+      selectList,
+      create,
+      update,
+      remove,
+      createItem,
+      updateItem,
+      removeItem,
+      changeListName,
+      removeUser,
+      showResolved,
+      setShowResolved,
+      getSelectedListWithUnresolvedItems,
+      getSelectedListWithResolvedItems,
+    } = useJokes();
+    const unresolvedItemsList = getSelectedListWithUnresolvedItems();
+    const resolvedItemsList = getSelectedListWithResolvedItems();
+    console.log(resolvedItemsList)
+    const currentList = lists.find((list) => list.id === currentListId) || {};
     //@@viewOn:render
     return (
       <>
@@ -84,17 +99,17 @@ let List = createVisualComponent({
             <div className={Css.ListButtons()}>
               <NewTitleView changeListName={changeListName} style={{ maxWidth: 400, display: "block" }} />
               <CreateView currentID={currentListId} onCreate={createItem} style={{ maxWidth: 400, display: "block" }} />
-              {/* <Button onClick={() => setShowResolved(!showResolved)}>
+              <Button onClick={() => setShowResolved(!showResolved)}>
                 {showResolved ? "Show Unresolved" : "Show Resolved"}
-              </Button> */}
+              </Button>
             </div>
             <ListView
               id={currentListId}
-              shoppingList={currentList}
-              // showResolved={showResolved}
-              resolvedItems={currentList.resolvedShoppingLists || []}
+              shoppingList={unresolvedItemsList || {}}
+              showResolved={showResolved}
+              resolvedItems={resolvedItemsList || []}
               onDelete={removeItem}
-              onUpdate={update}
+              onUpdate={updateItem}
             />
           </div>
         </div>

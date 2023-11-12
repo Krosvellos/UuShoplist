@@ -9,6 +9,7 @@ const initialLists = [
   {
     id: "123456",
     listName: "John list",
+    archived: false,
     userList: [
       { id: Utils.String.generateId(), name: "John" },
       { id: Utils.String.generateId(), name: "Jacob" },
@@ -25,18 +26,17 @@ const initialLists = [
         name: "Egg",
         resolved: true,
       },
-    ],
-
-    resolvedShoppingLists: [
       {
         id: Utils.String.generateId(),
         name: "Bread",
+        resolved: true,
       },
     ],
   },
   {
     id: "12345612",
     listName: "matheo list",
+    archived: false,
     userList: [
       { id: Utils.String.generateId(), name: "jimmy" },
       { id: Utils.String.generateId(), name: "neutron" },
@@ -53,12 +53,10 @@ const initialLists = [
         name: "ham",
         resolved: true,
       },
-    ],
-
-    resolvedShoppingLists: [
       {
         id: Utils.String.generateId(),
         name: "Bread",
+        resolved: true,
       },
     ],
   },
@@ -81,11 +79,34 @@ const ListProvider = createComponent({
     //@@viewOn:private
     const [lists, setLists] = useState(initialLists); // State to manage multiple lists
     const [currentListId, setCurrentListId] = useState(initialLists[0]?.id); // Initialize with the ID of the first list
-
+    const [showResolved, setShowResolved] = useState(false)
     // Function to change the currently selected list
     function selectList(listId) {
       setCurrentListId(listId);
     }
+
+    function getSelectedListWithUnresolvedItems() {
+      const selectedList = lists.find((list) => list.id === currentListId);
+      if (!selectedList) return null;
+
+      return {
+        ...selectedList,
+        singleShoppingList: selectedList.singleShoppingList.filter((item) => !item.resolved),
+      };
+    }
+
+
+    function getSelectedListWithResolvedItems() {
+      const selectedList = lists.find((list) => list.id === currentListId);
+      if (!selectedList) return null;
+
+      return {
+        ...selectedList,
+        singleShoppingList: selectedList.singleShoppingList.filter((item) => item.resolved),
+      };
+    }
+
+
 
     // CRUD operations adapted for multiple lists:
 
@@ -93,8 +114,8 @@ const ListProvider = createComponent({
       setLists((prevLists) => [...prevLists, { ...list, id: Utils.String.generateId() }]);
     }
 
-    function update(listId, updatedFields) {
-      setLists((prevLists) => prevLists.map((list) => (list.id === listId ? { ...list, ...updatedFields } : list)));
+    function update(listId) {
+      setLists((prevLists) => prevLists.map((list) => (list.id === listId ? { ...list, archived: true } : list)));
     }
 
     function remove(listId) {
@@ -105,7 +126,7 @@ const ListProvider = createComponent({
       setLists((prevLists) =>
         prevLists.map((list) =>
           list.id === listId
-            ? { ...list, singleShoppingList: [...list.singleShoppingList, { ...item,id: Utils.String.generateId() }] }
+            ? { ...list, singleShoppingList: [...list.singleShoppingList, { ...item, id: Utils.String.generateId() }] }
             : list
         )
       );
@@ -122,15 +143,14 @@ const ListProvider = createComponent({
         })
       );
     }
-
-    function updateItem(listId, itemId, updatedFields) {
+    function updateItem(listId, itemId) {
       setLists((prevLists) =>
         prevLists.map((list) =>
           list.id === listId
             ? {
                 ...list,
                 singleShoppingList: list.singleShoppingList.map((item) =>
-                  item.id === itemId ? { ...item, ...updatedFields } : item
+                  item.id === itemId ? { ...item, resolved: true } : item
                 ),
               }
             : list
@@ -162,7 +182,9 @@ const ListProvider = createComponent({
     function removeUser(userId) {
       setLists((prevLists) =>
         prevLists.map((list) =>
-          list.id === currentListId ? { ...list, userList: list.userList.filter((user) => user.id !== userId.id) } : list
+          list.id === currentListId
+            ? { ...list, userList: list.userList.filter((user) => user.id !== userId.id) }
+            : list
         )
       );
     }
@@ -183,6 +205,10 @@ const ListProvider = createComponent({
       createUser,
       removeUser,
       changeListName,
+      showResolved,
+      setShowResolved,
+      getSelectedListWithUnresolvedItems,
+      getSelectedListWithResolvedItems,
       // Add any additional functions or state variables here as needed
     };
 

@@ -25,6 +25,10 @@ const ListsTile = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    function handleDelete(event) {
+      props.onDelete(new Utils.Event(props.list, event));
+    }
+
 
     const handleSelect = () => {
       props.selectList(props.list.id); // Call the context function to select the list
@@ -38,11 +42,11 @@ const ListsTile = createVisualComponent({
       <Box {...elementProps} onClick={() => handleSelect()}>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
           <Text category="interface" segment="title" type="minor" colorScheme="building" style={{ marginLeft: 50 }}>
-           {props.list.listName}
+            {props.list.listName}
           </Text>
           <Box significance="distinct">
-            <Button icon="mdi-update"  significance="subdued" tooltip="Resolve" />
-            <Button icon="mdi-delete"  significance="subdued" tooltip="Delete" />
+            <Button icon="mdi-update" significance="subdued" tooltip="Resolve" />
+            <Button icon="mdi-delete" onClick={handleDelete} significance="subdued" tooltip="Delete" />
           </Box>
         </div>
       </Box>

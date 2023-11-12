@@ -26,12 +26,12 @@ let Lists = createVisualComponent({
 
   render() {
     //@@viewOn:render
-        const { lists, currentListId } = useJokes();
-        console.log(currentListId);
+        const { currentListId, remove } = useJokes();
+        //console.log(currentListId);
     return (
       <>
         <RouteBar />
-        <ListsView />
+        <ListsView onDelete={remove} />
       </>
     );
     //@@viewOff:render
